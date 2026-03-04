@@ -401,6 +401,9 @@ export default function Design1({ labs, commitments, aboutText }) {
         <button style={styles.navItem(page === 'trackrecords')} onClick={() => setPage('trackrecords')}>
           All Labs Trackrecords and Takes
         </button>
+        <button style={styles.navItem(page === 'contact')} onClick={() => setPage('contact')}>
+          Contact
+        </button>
       </div>
 
       {page === 'trackrecords' && (
@@ -641,6 +644,24 @@ export default function Design1({ labs, commitments, aboutText }) {
             ))}
           </ul>
           <div style={styles.aboutText}>{aboutText.philosophyGrades.outro}</div>
+        </div>
+      )}
+
+      {page === 'contact' && (
+        <div style={styles.aboutContainer}>
+          <div style={styles.aboutTitle}>Contact</div>
+          <div style={styles.aboutText}>
+            {'I am most likely to get back to you quickest via Twitter or Admonymous (which is anonymous).\n\n'}
+            <span style={{ fontWeight: 700 }}>Twitter: </span>
+            <a href="https://twitter.com/ratorthodox" target="_blank" rel="noopener noreferrer" style={{ color: '#000', textDecoration: 'underline', textUnderlineOffset: '3px' }}>@ratorthodox</a>
+            {'\n\n'}
+            <span style={{ fontWeight: 700 }}>Admonymous: </span>
+            <a href="https://www.admonymous.co/#" target="_blank" rel="noopener noreferrer" style={{ color: '#000', textDecoration: 'underline', textUnderlineOffset: '3px' }}>admonymous.co</a>
+            {' (anonymous feedback welcome)'}
+            {'\n\n'}
+            <span style={{ fontWeight: 700 }}>Email: </span>
+            <a href="mailto:me@ronnyf.com" style={{ color: '#000', textDecoration: 'underline', textUnderlineOffset: '3px' }}>me@ronnyf.com</a>
+          </div>
         </div>
       )}
     </div>
