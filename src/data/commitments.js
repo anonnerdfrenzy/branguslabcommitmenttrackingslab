@@ -53,6 +53,15 @@ export const labs = [
     overallConfidence: 0.4,
     summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mistral has positioned itself around open-weight model releases. The commitment has been partially maintained, with some newer models being released under more restrictive terms.',
   },
+  {
+    id: 'deepseek',
+    name: 'DeepSeek',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/DeepSeek_logo.svg/250px-DeepSeek_logo.svg.png',
+    color: '#4D6BFE',
+    overallGrade: 'C',
+    overallConfidence: 0.3,
+    summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. DeepSeek has emerged as a significant player in open-weight AI model development. Evaluation of commitments is preliminary given the lab\'s relatively recent rise to prominence and limited public commitment documentation.',
+  },
 ];
 
 export const commitments = [
@@ -65,14 +74,67 @@ export const commitments = [
 
 When OpenAI later created a for-profit subsidiary, it retained nonprofit control and presented this governance structure as the mechanism ensuring safety and the public interest would take priority over commercial pressures. In a February 2023 blog post ("Planning for AGI and beyond"), CEO Sam Altman wrote that OpenAI had "a nonprofit that governs us and lets us operate for the good of humanity (and can override any for-profit interests), including letting us do things like cancel our equity obligations to shareholders if needed for safety."[2]
 
-Three months later, in written Senate testimony, Altman described five governance provisions he said ensured the company "remains focused on this long-term mission": the nonprofit is a 501(c)(3) public charity; the for-profit is "fully controlled by the Nonprofit"; directors owe fiduciary duties to "safe AGI that is broadly beneficial"; the board remains majority independent with independent directors holding no equity; and profit is capped with the nonprofit retaining "all residual value for the benefit of humanity."[3] He told Congress that "AGI technologies are explicitly reserved for the Nonprofit to govern" and that "the Nonprofit's principal beneficiary is humanity, not OpenAI investors."[3]`,
+Three months later, in written testimony before the Senate Subcommittee on Privacy, Technology, and the Law, Altman described five governance provisions he said ensured the company "remains focused on this long-term mission": the nonprofit is a 501(c)(3) public charity; the for-profit is "fully controlled by the Nonprofit"; directors owe fiduciary duties to "safe AGI that is broadly beneficial"; the board remains majority independent with independent directors holding no equity; and profit is capped with the nonprofit retaining "all residual value for the benefit of humanity."[3] He told Congress that "AGI technologies are explicitly reserved for the Nonprofit to govern" and that "the Nonprofit's principal beneficiary is humanity, not OpenAI investors."[3]`,
     sources: [
-      { text: '"Introducing OpenAI," Brockman, Sutskever, et al., Dec 11, 2015', url: 'https://openai.com/index/introducing-openai/' },
-      { text: '"Planning for AGI and beyond," Altman, Feb 24, 2023', url: 'https://openai.com/index/planning-for-agi-and-beyond/' },
+      { text: '\u201CIntroducing OpenAI,\u201D Brockman, Sutskever, et al., Dec 11, 2015', url: 'https://openai.com/index/introducing-openai/' },
+      { text: '\u201CPlanning for AGI and beyond,\u201D Altman, Feb 24, 2023', url: 'https://openai.com/index/planning-for-agi-and-beyond/' },
       { text: 'Written Senate testimony of Sam Altman, May 16, 2023', url: 'https://www.judiciary.senate.gov/imo/media/doc/2023-05-16%20-%20Bio%20&%20Testimony%20-%20Altman.pdf' },
+      { text: 'OpenAI board statement, Nov 17, 2023, via Wikipedia', url: 'https://en.wikipedia.org/wiki/Removal_of_Sam_Altman_from_OpenAI' },
+      { text: 'NPR, \u201COpenAI reinstates Sam Altman as its chief executive,\u201D Nov 22, 2023', url: 'https://www.npr.org/2023/11/22/1214621010/openai-reinstates-sam-altman-as-its-chief-executive' },
+      { text: 'TIME, \u201CSam Altman Returns as OpenAI CEO. Here\u2019s How It Happened,\u201D Nov 22, 2023', url: 'https://time.com/6338789/sam-altman-openai-return-timeline/' },
+      { text: 'PitchBook, \u201COpenAI\u2019s Altman reinstated as CEO,\u201D Nov 22, 2023', url: 'https://pitchbook.com/news/articles/openai-sam-altman-reinstatement' },
+      { text: 'CNBC, \u201CFormer OpenAI board member explains why CEO Sam Altman got fired,\u201D May 29, 2024', url: 'https://www.cnbc.com/2024/05/29/former-openai-board-member-explains-why-ceo-sam-altman-was-fired.html' },
+      { text: 'PR Week, \u201CHow Sam Altman ran circles around OpenAI\u2019s board on social media,\u201D Nov 27, 2023', url: 'https://www.prweek.com/article/1849160/sam-altman-ran-circles-around-openais-board-social-media' },
+      { text: 'India TV News, \u201CSam Altman\u2019s ouster to reinstatement,\u201D Nov 22, 2023', url: 'https://www.indiatvnews.com/technology/news/sam-altman-s-ouster-to-reinstatement-the-chaos-at-openai-explained-in-5-points-2023-11-22-903860' },
+      { text: 'The Hill, \u201CSam Altman reinstated to OpenAI board after investigation,\u201D Mar 9, 2024', url: 'https://thehill.com/policy/technology/4520331-sam-altman-reinstated-to-openai-board-after-investigation/' },
+      { text: 'Reuters, \u201COpenAI to remove non-profit control and give Sam Altman equity,\u201D Dec 2024 (via multiple outlets)', url: '' },
+      { text: 'Bloomberg Law, \u201COpenAI Conversion Sheds Nonprofit Purpose Without Justification,\u201D Feb 13, 2025', url: 'https://news.bloomberglaw.com/us-law-week/openai-conversion-sheds-nonprofit-purpose-without-justification' },
+      { text: 'TechCrunch, \u201COpenAI reverses course, says its nonprofit will remain in control,\u201D May 5, 2025', url: 'https://techcrunch.com/2025/05/05/openai-reverses-course-says-its-nonprofit-will-remain-in-control-of-its-business-operations/' },
+      { text: 'OpenAI, \u201COur structure\u201D', url: 'https://openai.com/our-structure/' },
+      { text: 'EA Forum, \u201CThe End of OpenAI\u2019s Nonprofit Era,\u201D Oct 29, 2025', url: 'https://forum.effectivealtruism.org/posts/rrPGEvvKSqFqd2bzQ/the-end-of-openai-s-nonprofit-era' },
+      { text: 'The OpenAI Files \u2014 Restructuring Concerns', url: 'https://openaifiles.org/restructuring' },
+      { text: 'Fortune, \u201COpenAI changed its mission statement 6 times in 9 years,\u201D Feb 23, 2026', url: 'https://fortune.com/2026/02/23/openai-mission-statement-changed-restructuring-forprofit-business/' },
     ],
-    degreeOfCommitment: `It seems clear that OAI was founded with some kind of commitment about its governance structure as a central piece of its operational principles.`,
-    evaluationOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.`,
+    degreeOfCommitment: `The founding document does not actually use promise-like language.[1] It says that the authors think the current structure and goals are correct, which is a statement about their current beliefs at the time of writing, not about what the org will do in the future. Sam Altman did not make an explicit promise in his testimony to Congress or in the blogpost either.[2] [3]
+
+But the function of Altman\u2019s Senate testimony was to reassure Congress that external regulation wasn\u2019t needed \u2014 he was asking for regulatory forbearance on the basis of structural safeguards. When you tell a Senate subcommittee \u201Chere are five provisions that ensure we stay focused on our mission,\u201D you are staking your credibility on those provisions continuing to exist. That\u2019s doing the work of a commitment whether or not it\u2019s technically one.
+
+So the degree of commitment is murky. That said, I would not like to reward low-integrity actors by assessing them more favorably when they skillfully make it seem like they made a commitment without explicitly ever committing. Committing and having explicit fine print would be better by my standards \u2014 at least then one could look back and say that the commitment was broken and evaluate the escape clauses.
+
+On the question of how much was there a commitment made by either OpenAI or Sam Altman: by letter I think very little, but in spirit a fair bit. I think this should count against them rather than in favor.`,
+    evaluationOfCommitment: `Things look pretty bad.
+
+## Board Fires Sam Altman Incident
+
+A few months after Altman\u2019s testimony, the board tried to exercise its governance duties by firing Altman, concluding he was \u201Cnot consistently candid in his communications.\u201D[4] They did legally fire him, but through a mixture of A) being hired at Microsoft,[5] B) threats of general employee revolt,[6] and C) flipping key employees on the decision of whether he should be fired,[6] Sam Altman was reinstated as CEO five days later and had all of the board replaced.[7]
+
+Former board member Helen Toner later said on a podcast that the board\u2019s action was not impulsive \u2014 that \u201Cfor years, Sam had made it really difficult for the board to actually do that job by withholding information, misrepresenting things that were happening at the company, in some cases outright lying to the board.\u201D[8] She said Altman gave the board \u201Cinaccurate information about the small number of formal safety processes that the company did have in place\u201D on multiple occasions.[8]
+
+Sam Altman was clearly fairly agentic in these events. That Saturday, he held a gathering of employees at his residence.[6] The Sunday after, he met with the board and posted with a guest badge on X saying \u201Cfirst and last time I ever wear one of these.\u201D[9] Later that same day he demanded that the board resign.[10] After being hired by Microsoft on Monday,[5] he posted a rallying tweet: \u201Cwe have more unity and commitment and focus than ever before. we are all going to work together some way or other, and i\u2019m so excited. one team, one mission.\u201D[9] OpenAI employees \u201Cover the weekend had been engaged in a coordinated show of support for Altman and Brockman on X\u201D and \u201Cbegan to tweet the same phrase suggesting they might leave en-masse: \u2018OpenAI is nothing without its people.\u2019\u201D[6]
+
+Altman didn\u2019t directly ask the public to trust him because the board could remove him, but he did say many things that were peppered with that sentiment.[3] [2] He argued that the board\u2019s fiduciary duty to humanity \u201Censures\u201D the organization stays focused on its mission.[3] He wrote that the nonprofit \u201Ccan override any for-profit interests.\u201D[2] When the board attempted to use that authority, he did not treat it as a governance safeguard working as intended. He hosted employees at his residence, ran an X campaign, posted rallying messages, demanded the board\u2019s resignation, and was reinstated with those board members removed. He then returned to the board himself by March 2024.[11]
+
+In other words: he asked the public to trust OpenAI because the board could override him, and then when the board tried to override him, he overrode the board.
+
+## Sam Altman Tries To Get The For-Profit To Be Independent Incident
+
+In December 2024, OpenAI proposed restructuring so that the nonprofit would lose its controlling stake and become merely a large shareholder in a new for-profit public benefit corporation.[12] Legal scholars argued the plan would \u201Crelieve the operational subsidiary of its duty to advance the nonprofit purposes.\u201D[13] After backlash from former employees, Nobel laureates, civic organizations, and scrutiny from the California and Delaware attorneys general, OpenAI reversed course in May 2025, announcing the nonprofit would retain control.[14]
+
+## The final structure (October 2025)
+
+On October 28, 2025, OpenAI completed its restructuring.[15] Several of the specific safeguards Altman cited to Congress were altered or removed:
+
+Profit caps: The binding profit caps Altman described as preventing OpenAI from being \u201Cincentivized to attempt to capture value without bound\u201D[2] were abolished.[16] It was separately reported that OpenAI had already quietly modified the caps in 2023 to increase by 20% per year starting in 2025, without public disclosure.[17]
+
+Nonprofit ownership: The nonprofit previously owned 100% of the for-profit subsidiary. Under the new structure, the OpenAI Foundation holds 26% equity, while Microsoft holds 27% and employees and other investors hold 47%.[15]
+
+Nonprofit control: The Foundation retains governance rights including appointing and removing PBC board members, and OpenAI characterizes this as the nonprofit remaining \u201Cin control.\u201D However, all current Foundation directors also serve on the for-profit board, limiting independence.[16]
+
+AGI reserved for the nonprofit: Altman told Congress that \u201CAGI technologies are explicitly reserved for the Nonprofit to govern.\u201D[3] Under the new structure, the for-profit PBC operates the technology directly; the Foundation\u2019s relationship to AGI is through its equity stake and board appointment power rather than direct ownership.[15]
+
+Mission statement: OpenAI changed its mission statement six times across nine IRS filings, and in its 2025 Form 990 removed all references to safety from the mission language.[18]
+
+The OpenAI Files project, compiled by the Midas Project and the Tech Oversight Project, summarized the trajectory: the nonprofit board \u201Ctried to exercise control of its for-profit subsidiary by firing Sam Altman, but was thwarted,\u201D and the restructuring means \u201Cprofit motives are no longer subordinate to OpenAI\u2019s charitable purpose.\u201D[17]`,
     grade: 'F',
     confidence: 0.85,
   },
@@ -111,54 +173,6 @@ Three months later, in written Senate testimony, Altman described five governanc
     evaluationOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porttitor accumsan tincidunt. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.`,
     grade: 'C',
     confidence: 0.5,
-  },
-  {
-    id: 'deepmind-frontier-safety',
-    labId: 'google-deepmind',
-    title: 'Frontier Safety Framework',
-    lastUpdated: '2026-02-10',
-    contentOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. Cras ultricies ligula sed magna dictum porta.`,
-    sources: [],
-    degreeOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat.`,
-    evaluationOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.`,
-    grade: 'B+',
-    confidence: 0.55,
-  },
-  {
-    id: 'meta-open-source',
-    labId: 'meta',
-    title: 'Open Source AI Commitment',
-    lastUpdated: '2026-01-28',
-    contentOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Donec rutrum congue leo eget malesuada. Cras ultricies ligula sed magna dictum porta.`,
-    sources: [],
-    degreeOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.`,
-    evaluationOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat.`,
-    grade: 'A-',
-    confidence: 0.7,
-  },
-  {
-    id: 'xai-transparency',
-    labId: 'xai',
-    title: 'Transparency and Openness',
-    lastUpdated: '2026-02-05',
-    contentOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.`,
-    sources: [],
-    degreeOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.`,
-    evaluationOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.`,
-    grade: 'C-',
-    confidence: 0.35,
-  },
-  {
-    id: 'mistral-open-models',
-    labId: 'mistral',
-    title: 'Open Weight Models Policy',
-    lastUpdated: '2026-01-15',
-    contentOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.`,
-    sources: [],
-    degreeOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitor accumsan tincidunt.`,
-    evaluationOfCommitment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ipsum id orci porta dapibus. Cras ultricies ligula sed magna dictum porta.`,
-    grade: 'B-',
-    confidence: 0.4,
   },
 ];
 

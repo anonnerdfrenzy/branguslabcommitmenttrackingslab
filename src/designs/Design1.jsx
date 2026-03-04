@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 /*
  * DESIGN 1: BRUTALIST MONO
@@ -97,8 +97,9 @@ const styles = {
     letterSpacing: '0.5px',
   }),
   labLogo: (active) => ({
-    width: '40px',
-    height: '40px',
+    height: '28px',
+    width: 'auto',
+    maxWidth: '80px',
     objectFit: 'contain',
     filter: active ? 'invert(1)' : 'none',
   }),
@@ -218,8 +219,9 @@ const styles = {
     marginBottom: '4px',
   },
   labHeaderLogo: {
-    width: '32px',
-    height: '32px',
+    height: '24px',
+    width: 'auto',
+    maxWidth: '80px',
     objectFit: 'contain',
   },
   labHeaderName: {
@@ -241,47 +243,89 @@ const styles = {
   },
 };
 
-// Renders text with [1], [2], etc. as clickable superscript links
+// Renders text with [1], [2], etc. as clickable superscript links, and ## headings
 function renderTextWithCitations(text, sources) {
-  if (!sources || sources.length === 0) return text;
-  const parts = text.split(/(\[\d+\])/g);
-  return parts.map((part, i) => {
-    const match = part.match(/^\[(\d+)\]$/);
-    if (match) {
-      const num = parseInt(match[1], 10);
-      const source = sources[num - 1];
-      if (source) {
-        return (
-          <a
-            key={i}
-            href={source.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontSize: '13px',
-              fontWeight: 700,
-              verticalAlign: 'super',
-              lineHeight: 0,
-              color: '#000',
-              textDecoration: 'underline',
-              textUnderlineOffset: '2px',
-              cursor: 'pointer',
-              padding: '0 3px',
-            }}
-            title={source.text}
-          >
-            {num}
-          </a>
-        );
-      }
+  // Split by lines first to handle ## headings
+  const lines = text.split('\n');
+  const elements = [];
+  let currentBlock = [];
+
+  const flushBlock = (key) => {
+    if (currentBlock.length === 0) return;
+    const blockText = currentBlock.join('\n');
+    currentBlock = [];
+    if (!sources || sources.length === 0) {
+      elements.push(<span key={key}>{blockText}</span>);
+      return;
     }
-    return part;
+    const parts = blockText.split(/(\[\d+\])/g);
+    elements.push(
+      <span key={key}>
+        {parts.map((part, i) => {
+          const match = part.match(/^\[(\d+)\]$/);
+          if (match) {
+            const num = parseInt(match[1], 10);
+            const source = sources[num - 1];
+            if (source) {
+              return (
+                <a
+                  key={i}
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    verticalAlign: 'super',
+                    lineHeight: 0,
+                    color: '#000',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: '2px',
+                    cursor: 'pointer',
+                    padding: '0 3px',
+                  }}
+                  title={source.text}
+                >
+                  {num}
+                </a>
+              );
+            }
+          }
+          return part;
+        })}
+      </span>
+    );
+  };
+
+  lines.forEach((line, i) => {
+    if (line.startsWith('## ')) {
+      flushBlock(`block-${i}`);
+      elements.push(
+        <div
+          key={`h-${i}`}
+          style={{
+            fontSize: '16px',
+            fontWeight: 700,
+            fontStyle: 'italic',
+            marginTop: '24px',
+            marginBottom: '4px',
+            fontFamily: '"Friz Quadrata", "Friz Quadrata Std", "Trajan Pro", Georgia, serif',
+          }}
+        >
+          {line.slice(3)}
+        </div>
+      );
+    } else {
+      currentBlock.push(line);
+    }
   });
+  flushBlock('block-final');
+  return elements;
 }
 
-// Strips [1] markers from text for preview
+// Strips [1] markers and ## headings from text for preview
 function stripCitations(text) {
-  return text.replace(/\[\d+\]/g, '');
+  return text.replace(/\[\d+\]/g, '').replace(/^## /gm, '');
 }
 
 function CollapsibleSection({ label, text, sources, defaultOpen = false }) {
@@ -312,21 +356,31 @@ function CollapsibleSection({ label, text, sources, defaultOpen = false }) {
         {open || !needsCollapse ? (
           <>
             {renderTextWithCitations(text, sources)}
-            {sources && sources.length > 0 && (
-              <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #ccc' }}>
-                <div style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '8px', opacity: 0.5 }}>
-                  Sources
+            {sources && sources.length > 0 && (() => {
+              const cited = [...text.matchAll(/\[(\d+)\]/g)].map(m => parseInt(m[1], 10));
+              const uniqueCited = [...new Set(cited)].sort((a, b) => a - b);
+              const relevantSources = uniqueCited.filter(n => sources[n - 1]).map(n => ({ num: n, ...sources[n - 1] }));
+              if (relevantSources.length === 0) return null;
+              return (
+                <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #ccc' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '8px', opacity: 0.5 }}>
+                    Sources
+                  </div>
+                  <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                    {relevantSources.map((s) => (
+                      <li key={s.num} style={{ fontSize: '15px', padding: '6px 0', borderBottom: '1px dotted #ccc', display: 'flex', gap: '8px' }}>
+                        <span style={{ fontWeight: 700, flexShrink: 0 }}>{s.num}.</span>
+                        {s.url ? (
+                          <a href={s.url} target="_blank" rel="noopener noreferrer" style={styles.sourceLink}>{s.text}</a>
+                        ) : (
+                          <span>{s.text}</span>
+                        )}
+                      </li>
+                    ))}
+                  </ol>
                 </div>
-                <ol style={{ listStyle: 'none', padding: 0, margin: 0, counterReset: 'src' }}>
-                  {sources.map((s, i) => (
-                    <li key={i} style={{ fontSize: '15px', padding: '6px 0', borderBottom: '1px dotted #ccc', display: 'flex', gap: '8px' }}>
-                      <span style={{ fontWeight: 700, flexShrink: 0 }}>{i + 1}.</span>
-                      <a href={s.url} target="_blank" rel="noopener noreferrer" style={styles.sourceLink}>{s.text}</a>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
+              );
+            })()}
           </>
         ) : (
           <div>
@@ -356,11 +410,63 @@ function CollapsibleSection({ label, text, sources, defaultOpen = false }) {
   );
 }
 
+function parseHash() {
+  const hash = window.location.hash.slice(1); // remove #
+  const params = new URLSearchParams(hash);
+  return {
+    page: params.get('page') || 'commitments',
+    lab: params.get('lab') || null,
+    commitment: params.get('c') || null,
+  };
+}
+
+function buildHash(page, lab, commitment) {
+  const params = new URLSearchParams();
+  if (page && page !== 'commitments') params.set('page', page);
+  if (page === 'commitments' && lab) params.set('lab', lab);
+  if (page === 'commitments' && commitment) params.set('c', commitment);
+  const str = params.toString();
+  return str ? `#${str}` : '#';
+}
+
 export default function Design1({ labs, commitments, aboutText }) {
-  const [page, setPage] = useState('commitments');
-  const [selectedLab, setSelectedLab] = useState(null);
-  const [selectedCommitment, setSelectedCommitment] = useState(null);
+  const initial = parseHash();
+  const [page, setPageState] = useState(initial.page);
+  const [selectedLab, setSelectedLabState] = useState(initial.lab);
+  const [selectedCommitment, setSelectedCommitmentState] = useState(initial.commitment);
   const [search, setSearch] = useState('');
+
+  const pushState = useCallback((p, lab, c) => {
+    const hash = buildHash(p, lab, c);
+    window.history.pushState(null, '', hash);
+  }, []);
+
+  const setPage = useCallback((p) => {
+    setPageState(p);
+    pushState(p, p === 'commitments' ? selectedLab : null, p === 'commitments' ? selectedCommitment : null);
+  }, [pushState, selectedLab, selectedCommitment]);
+
+  const setSelectedLab = useCallback((lab) => {
+    setSelectedLabState(lab);
+    setSelectedCommitmentState(null);
+    pushState('commitments', lab, null);
+  }, [pushState]);
+
+  const setSelectedCommitment = useCallback((c) => {
+    setSelectedCommitmentState(c);
+    pushState('commitments', selectedLab, c);
+  }, [pushState, selectedLab]);
+
+  useEffect(() => {
+    const onPopState = () => {
+      const s = parseHash();
+      setPageState(s.page);
+      setSelectedLabState(s.lab);
+      setSelectedCommitmentState(s.commitment);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   const filteredCommitments = commitments.filter(c => {
     const matchesLab = selectedLab ? c.labId === selectedLab : true;
@@ -418,7 +524,7 @@ export default function Design1({ labs, commitments, aboutText }) {
                 <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}>
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
-                      <img src={lab.logo} alt={lab.name} style={{ width: '48px', height: '48px', objectFit: 'contain' }} />
+                      <img src={lab.logo} alt={lab.name} style={{ height: '36px', width: 'auto', maxWidth: '120px', objectFit: 'contain' }} />
                       <div style={{ fontSize: '28px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-1px' }}>
                         {lab.name}
                       </div>
@@ -427,7 +533,7 @@ export default function Design1({ labs, commitments, aboutText }) {
                       {lab.summary}
                     </div>
                     <button
-                      onClick={() => { setSelectedLab(lab.id); setSelectedCommitment(null); setPage('commitments'); }}
+                      onClick={() => { setPageState('commitments'); setSelectedLabState(lab.id); setSelectedCommitmentState(null); pushState('commitments', lab.id, null); }}
                       style={{
                         background: '#000',
                         color: '#fff',
@@ -489,7 +595,7 @@ export default function Design1({ labs, commitments, aboutText }) {
           <div style={styles.labIndex}>
             <button
               style={styles.labBtn(selectedLab === null)}
-              onClick={() => { setSelectedLab(null); setSelectedCommitment(null); }}
+              onClick={() => setSelectedLab(null)}
             >
               <div style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>*</div>
               All Labs
@@ -498,7 +604,7 @@ export default function Design1({ labs, commitments, aboutText }) {
               <button
                 key={lab.id}
                 style={styles.labBtn(selectedLab === lab.id)}
-                onClick={() => { setSelectedLab(lab.id); setSelectedCommitment(null); }}
+                onClick={() => setSelectedLab(lab.id)}
               >
                 <img src={lab.logo} alt={lab.name} style={styles.labLogo(selectedLab === lab.id)} />
                 {lab.name}
@@ -602,10 +708,12 @@ export default function Design1({ labs, commitments, aboutText }) {
                     <CollapsibleSection
                       label="Degree of Commitment"
                       text={activeCommitment.degreeOfCommitment}
+                      sources={activeCommitment.sources}
                     />
                     <CollapsibleSection
                       label="Evaluation of Commitment"
                       text={activeCommitment.evaluationOfCommitment}
+                      sources={activeCommitment.sources}
                     />
                   </>
                 );
