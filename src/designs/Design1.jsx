@@ -29,7 +29,7 @@ function scoreToColor(score) {
 
 const styles = {
   page: {
-    fontFamily: '"Space Mono", monospace',
+    fontFamily: 'Baskerville, "Baskerville Old Face", "Hoefler Text", Georgia, serif',
     background: '#fff',
     color: '#000',
     minHeight: '100vh',
@@ -91,7 +91,7 @@ const styles = {
     borderRight: '2px solid #000',
     transition: 'all 0.15s',
     fontSize: '11px',
-    fontFamily: '"Space Mono", monospace',
+    fontFamily: '"Friz Quadrata", "Friz Quadrata Std", "Trajan Pro", Georgia, serif',
     fontWeight: 700,
     textTransform: 'uppercase',
     letterSpacing: '0.5px',
@@ -132,7 +132,7 @@ const styles = {
     textAlign: 'left',
     border: 'none',
     borderBottom: '1px solid ' + (active ? '#333' : '#ccc'),
-    fontFamily: '"Space Mono", monospace',
+    fontFamily: '"Friz Quadrata", "Friz Quadrata Std", "Trajan Pro", Georgia, serif',
   }),
   commitmentItemTitle: {
     fontSize: '14px',
@@ -175,9 +175,9 @@ const styles = {
     marginTop: '32px',
   },
   sectionText: {
-    fontSize: '14px',
-    lineHeight: 1.8,
-    maxWidth: '700px',
+    fontSize: '18px',
+    lineHeight: 1.9,
+    maxWidth: '900px',
     whiteSpace: 'pre-wrap',
   },
   sourcesList: {
@@ -207,8 +207,8 @@ const styles = {
     letterSpacing: '-1px',
   },
   aboutText: {
-    fontSize: '14px',
-    lineHeight: 1.8,
+    fontSize: '18px',
+    lineHeight: 1.9,
     whiteSpace: 'pre-wrap',
   },
   labHeader: {
@@ -234,7 +234,7 @@ const styles = {
     padding: '12px 20px',
     border: 'none',
     borderBottom: '1px solid #000',
-    fontFamily: '"Space Mono", monospace',
+    fontFamily: '"Friz Quadrata", "Friz Quadrata Std", "Trajan Pro", Georgia, serif',
     fontSize: '13px',
     background: '#f8f8f8',
     outline: 'none',
@@ -314,12 +314,12 @@ function CollapsibleSection({ label, text, sources, defaultOpen = false }) {
             {renderTextWithCitations(text, sources)}
             {sources && sources.length > 0 && (
               <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #ccc' }}>
-                <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '8px', opacity: 0.5 }}>
+                <div style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '8px', opacity: 0.5 }}>
                   Sources
                 </div>
                 <ol style={{ listStyle: 'none', padding: 0, margin: 0, counterReset: 'src' }}>
                   {sources.map((s, i) => (
-                    <li key={i} style={{ fontSize: '12px', padding: '4px 0', borderBottom: '1px dotted #ccc', display: 'flex', gap: '8px' }}>
+                    <li key={i} style={{ fontSize: '15px', padding: '6px 0', borderBottom: '1px dotted #ccc', display: 'flex', gap: '8px' }}>
                       <span style={{ fontWeight: 700, flexShrink: 0 }}>{i + 1}.</span>
                       <a href={s.url} target="_blank" rel="noopener noreferrer" style={styles.sourceLink}>{s.text}</a>
                     </li>
@@ -336,7 +336,7 @@ function CollapsibleSection({ label, text, sources, defaultOpen = false }) {
               style={{
                 background: 'none',
                 border: 'none',
-                fontFamily: '"Space Mono", monospace',
+                fontFamily: '"Friz Quadrata", "Friz Quadrata Std", "Trajan Pro", Georgia, serif',
                 fontSize: '12px',
                 fontWeight: 700,
                 textTransform: 'uppercase',
@@ -420,7 +420,7 @@ export default function Design1({ labs, commitments, aboutText }) {
                         {lab.name}
                       </div>
                     </div>
-                    <div style={{ fontSize: '14px', lineHeight: 1.8, maxWidth: '600px', opacity: 0.7, marginBottom: '16px' }}>
+                    <div style={{ fontSize: '18px', lineHeight: 1.9, maxWidth: '900px', opacity: 0.7, marginBottom: '16px' }}>
                       {lab.summary}
                     </div>
                     <button
@@ -432,7 +432,7 @@ export default function Design1({ labs, commitments, aboutText }) {
                         padding: '8px 20px',
                         fontSize: '11px',
                         fontWeight: 700,
-                        fontFamily: '"Space Mono", monospace',
+                        fontFamily: '"Friz Quadrata", "Friz Quadrata Std", "Trajan Pro", Georgia, serif',
                         textTransform: 'uppercase',
                         letterSpacing: '1px',
                         cursor: 'pointer',
@@ -634,7 +634,7 @@ export default function Design1({ labs, commitments, aboutText }) {
             margin: '16px 0',
             fontSize: '14px',
             lineHeight: 1.8,
-            fontFamily: '"Space Mono", monospace',
+            fontFamily: '"Friz Quadrata", "Friz Quadrata Std", "Trajan Pro", Georgia, serif',
           }}>
             {aboutText.philosophyGrades.bullets.map((b, i) => (
               <li key={i} style={{ marginBottom: '6px' }}>{b}</li>
