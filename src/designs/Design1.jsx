@@ -328,6 +328,43 @@ function stripCitations(text) {
   return text.replace(/\[\d+\]/g, '').replace(/^## /gm, '');
 }
 
+// Renders a truncated preview that preserves ## headings as styled elements
+function renderPreview(text, maxLen) {
+  const lines = text.split('\n');
+  const elements = [];
+  let charCount = 0;
+  let done = false;
+
+  for (let i = 0; i < lines.length && !done; i++) {
+    const line = lines[i];
+    if (line.startsWith('## ')) {
+      elements.push(
+        <span
+          key={`h-${i}`}
+          style={{
+            fontWeight: 700,
+            fontStyle: 'italic',
+            fontFamily: '"Friz Quadrata", "Friz Quadrata Std", "Trajan Pro", Georgia, serif',
+          }}
+        >
+          {(charCount > 0 ? '\n' : '') + line.slice(3)}
+        </span>
+      );
+    } else {
+      const clean = line.replace(/\[\d+\]/g, '');
+      const remaining = maxLen - charCount;
+      if (charCount + clean.length > maxLen) {
+        elements.push(clean.slice(0, remaining) + '...');
+        done = true;
+      } else {
+        elements.push((charCount > 0 && i > 0 ? '\n' : '') + clean);
+        charCount += clean.length;
+      }
+    }
+  }
+  return elements;
+}
+
 function CollapsibleSection({ label, text, sources, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
   const stripped = stripCitations(text);
@@ -384,7 +421,7 @@ function CollapsibleSection({ label, text, sources, defaultOpen = false }) {
           </>
         ) : (
           <div>
-            <span style={{ opacity: 0.6 }}>{stripped.slice(0, previewLength)}...</span>
+            <span style={{ opacity: 0.6 }}>{renderPreview(text, previewLength)}</span>
             <button
               onClick={(e) => { e.stopPropagation(); setOpen(true); }}
               style={{
