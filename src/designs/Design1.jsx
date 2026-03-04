@@ -750,7 +750,7 @@ export default function Design1({ labs, commitments, aboutText }) {
                     <CollapsibleSection
                       label="Evaluation of Commitment"
                       text={activeCommitment.evaluationOfCommitment}
-                      sources={activeCommitment.sources}
+                      sources={activeCommitment.evaluationSources || activeCommitment.sources}
                     />
                   </>
                 );
